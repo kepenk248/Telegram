@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Telegram untuk Android</title>
+        <style>
+            /* Base Styles */
+            body {
+                font-family: "Segoe UI", Arial, sans-serif;
+                margin: 0;
+            }
+
+            .nav {
+                display: flex;
+                justify-content: space-between;
+                padding: 4px 6px;
+                background-color: #0088cc;
+                color: white;
+            }
+
+            .nav a {
+                color: white;
+                text-decoration: none;
+                margin: 0 8px;
+                padding: 5px 10px;
+            }
+
+            .nav a.active {
+                font-weight: bold;
+                border-bottom: 2px;
+            }
+
+            .nav .right {
+                margin-left: auto;
+            }
+
+            .hero {
+                text-align: center;
+                justify-content: space-around;
+                padding: 50px 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .hero-img {
+                max-width: 100%;
+                width: 200px;
+            }
+
+            .hero-text {
+                max-width: 500px;
+            }
+
+            .btn-unduh {
+                display: inline-block;
+                padding: 12px 25px;
+                background-color: #0088cc;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                margin-top: 20px;
+                transition: background-color 0.3s;
+            }
+
+            .btn-unduh:hover {
+                background-color: #006699;
+            }
+
+            /* Language Switcher Styles */
+            .language-switcher {
+                position: relative;
+                display: inline-block;
+            }
+
+            .language-btn {
+                background: none;
+                border: none;
+                color: white;
+                cursor: pointer;
+                font-size: 16px;
+                padding: 5px 10px;
+            }
+
+            .language-popup {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 100%;
+                background-color: white;
+                min-width: 160px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+
+            .language-popup a {
+                color: #333;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                transition: background-color 0.3s;
+            }
+
+            .language-popup a:hover {
+                background-color: #f1f1f1;
+            }
+
+            .show {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="nav">
+            <a href="index.html">Beranda</a>
+            <a href="nav.html">FAQ</a>
+            <a class="active" href="#">Aplikasi</a>
+            <div class="right language-switcher">
+                <button class="language-btn" onclick="toggleLanguageMenu()">
+                    🌐 ID ▾
+                </button>
+                <div id="languageDropdown" class="language-popup">
+                    <a href="#" onclick="changeLanguage('id')"
+                        >🇮🇩 Bahasa Indonesia</a
+                    >
+                    <a href="#" onclick="changeLanguage('en')">🇬🇧 English</a>
+                    <a href="#" onclick="changeLanguage('es')">🇪🇸 Español</a>
+                    <a href="#" onclick="changeLanguage('fr')">🇫🇷 Français</a>
+                </div>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <img src="hp.jpg" alt="Tampilan Telegram di HP" class="hero-img" />
+            <div class="hero-text">
+                <h1 id="page-title">Telegram untuk Android</h1>
+                <p id="page-description">
+                    Anda dapat mengunduh Telegram untuk perangkat
+                    <strong>Android</strong> di sini. Versi ini memiliki lebih
+                    sedikit batasan dan mendapatkan
+                    <strong>pembaruan otomatis</strong> langsung dari
+                    <a href="index.html">telegram.org</a>.
+                </p>
+                <a href="redirect.html" class="btn-unduh">Unduh Telegram</a>
+            </div>
+        </section>
+
+        <script>
+            // Language translations
+            const translations = {
+                id: {
+                    "page-title": "Telegram untuk Android",
+                    "page-description":
+                        'Anda dapat mengunduh Telegram untuk perangkat <strong>Android</strong> di sini. Versi ini memiliki lebih sedikit batasan dan mendapatkan <strong>pembaruan otomatis</strong> langsung dari <a href="https://telegram.org">telegram.org</a>.',
+                    "btn-unduh": "Unduh Telegram",
+                    "nav-home": "Beranda",
+                    "nav-faq": "FAQ",
+                    "nav-apps": "Aplikasi",
+                    "language-btn": "🌐 ID ▾"
+                },
+                en: {
+                    "page-title": "Telegram for Android",
+                    "page-description":
+                        'You can download Telegram for <strong>Android</strong> devices here. This version has fewer restrictions and receives <strong>automatic updates</strong> directly from <a href="https://telegram.org">telegram.org</a>.',
+                    "btn-unduh": "Download Telegram",
+                    "nav-home": "Home",
+                    "nav-faq": "FAQ",
+                    "nav-apps": "Apps",
+                    "language-btn": "🌐 EN ▾"
+                },
+                es: {
+                    "page-title": "Telegram para Android",
+                    "page-description":
+                        'Puedes descargar Telegram para dispositivos <strong>Android</strong> aquí. Esta versión tiene menos restricciones y recibe <strong>actualizaciones automáticas</strong> directamente desde <a href="https://telegram.org">telegram.org</a>.',
+                    "btn-unduh": "Descargar Telegram",
+                    "nav-home": "Inicio",
+                    "nav-faq": "Preguntas",
+                    "nav-apps": "Aplicaciones",
+                    "language-btn": "🌐 ES ▾"
+                },
+                fr: {
+                    "page-title": "Telegram pour Android",
+                    "page-description":
+                        'Vous pouvez télécharger Telegram pour les appareils <strong>Android</strong> ici. Cette version a moins de restrictions et reçoit des <strong>mises à jour automatiques</strong> directement depuis <a href="https://telegram.org">telegram.org</a>.',
+                    "btn-unduh": "Télécharger Telegram",
+                    "nav-home": "Accueil",
+                    "nav-faq": "FAQ",
+                    "nav-apps": "Applications",
+                    "language-btn": "🌐 FR ▾"
+                }
+            };
+
+            // Toggle language menu
+            function toggleLanguageMenu() {
+                document
+                    .getElementById("languageDropdown")
+                    .classList.toggle("show");
+            }
+
+            // Change language
+            function changeLanguage(lang) {
+                // Update all translatable elements
+                document.getElementById("page-title").innerHTML =
+                    translations[lang]["page-title"];
+                document.getElementById("page-description").innerHTML =
+                    translations[lang]["page-description"];
+                document.querySelector(".btn-unduh").textContent =
+                    translations[lang]["btn-unduh"];
+
+                // Update navigation
+                document.querySelector(
+                    '.nav a[href="index.html"]'
+                ).textContent = translations[lang]["nav-home"];
+                document.querySelector(".nav a:nth-child(2)").textContent =
+                    translations[lang]["nav-faq"];
+                document.querySelector(".nav a.active").textContent =
+                    translations[lang]["nav-apps"];
+
+                // Update language button
+                document.querySelector(".language-btn").textContent =
+                    translations[lang]["language-btn"];
+
+                // Close dropdown
+                document
+                    .getElementById("languageDropdown")
+                    .classList.remove("show");
+
+                // Save preference
+                localStorage.setItem("preferredLanguage", lang);
+            }
+
+            // Close dropdown when clicking outside
+            window.onclick = function (event) {
+                if (!event.target.matches(".language-btn")) {
+                    const dropdowns =
+                        document.getElementsByClassName("language-popup");
+                    for (let i = 0; i < dropdowns.length; i++) {
+                        const openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains("show")) {
+                            openDropdown.classList.remove("show");
+                        }
+                    }
+                }
+            };
+
+            // Initialize with saved language or default
+            document.addEventListener("DOMContentLoaded", function () {
+                const savedLang =
+                    localStorage.getItem("preferredLanguage") || "id";
+                if (savedLang !== "id") {
+                    changeLanguage(savedLang);
+                }
+            });
+        </script>
+    </body>
+</html>

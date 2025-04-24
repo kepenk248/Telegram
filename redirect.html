@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Redirecting...</title>
+        <style>
+            /* CSS tetap sama seperti sebelumnya */
+            body {
+                margin: 0;
+                font-family: "Segoe UI", sans-serif;
+                background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .card {
+                background: #222;
+                padding: 30px;
+                border-radius: 20px;
+                box-shadow: 0 0 20px rgba(0, 255, 170, 0.2);
+                animation: fadeIn 1s ease;
+                width: 90%;
+                max-width: 400px;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            h2 {
+                margin-bottom: 10px;
+                color: #00ffc8;
+            }
+
+            #countdown {
+                font-size: 40px;
+                font-weight: bold;
+                color: #fffa65;
+                margin: 20px 0;
+            }
+
+            .btn {
+                background: #00ffc8;
+                color: #111;
+                padding: 15px 25px;
+                font-size: 18px;
+                border: none;
+                border-radius: 12px;
+                cursor: pointer;
+                animation: pulse 1s infinite;
+            }
+
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            .note {
+                margin-top: 15px;
+                font-size: 14px;
+                opacity: 0.7;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <h2>Please wait ...</h2>
+            <div id="countdown">10</div>
+            <button class="btn" onclick="redirectNow()">
+                Click If Not Redirect
+            </button>
+        </div>
+
+        <script>
+            // Konfigurasi
+            const LINK_MONETAG = "https://oorsoozo.top/4/9220052"; // Ganti dengan linkmu
+            const SCRIPT_ADSTERA = "https://iklan.adstera.com/popup.js"; // Ganti dengan script Adsterramu
+
+            // Fungsi redirect + popup
+            function redirectNow() {
+                // 1. Redirect ke Monetag
+                window.location.href = LINK_MONETAG;
+
+                // 2. Buka popup Adsterra setelah 1 detik
+                setTimeout(() => {
+                    const newTab = window.open("about:blank", "_blank");
+                    if (newTab) {
+                        const script = document.createElement("script");
+                        script.src = SCRIPT_ADSTERA;
+                        script.onerror = () => newTab.close(); // Tutup tab jika script gagal
+                        document.head.appendChild(script);
+                    } else {
+                        alert("Izinkan popup untuk bonus!");
+                    }
+                }, 1000);
+            }
+
+            // 3. Blokir tombol "Back"
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                window.location.href = LINK_MONETAG;
+            };
+        </script>
+    </body>
+</html>
